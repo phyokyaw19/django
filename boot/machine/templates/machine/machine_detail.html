@@ -1,0 +1,13 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+            <h2>{{ machine.title }}</h2>
+            <p>{{ machine.body }}</p>
+            <img src="{{ machine.thumb.url }}" />
+            <p>{{ machine.date }}</p>
+            <p>{{ machine.unique }}</p>
+            <p>{{ machine.plan_dates }}</p>
+            <p><a href="{% url 'machine:delete_machine' pk=machine.pk %}">Delete</a></p>
+            <p><a href="{% url 'machine:update_machine' pk=machine.pk %}">Update</a></p>
+
+{% endblock %}

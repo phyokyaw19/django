@@ -1,0 +1,13 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <div class="container" style="width:500px">
+        <h2>make new supplier!</h2>
+        <form class="site-form" action="{% url 'machine:add_supplier' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" value="Create">
+        </form>
+    </div>
+{% endblock %}

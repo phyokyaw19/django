@@ -1,0 +1,45 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+        <h3>Document Master List </h3>
+        <table id="document_master_list" class="table table-hover table-striped table-bordered table-sm " cellspacing="0"
+  width="100%">
+
+  <thead>
+    <tr>
+      <th >Document Code</th>
+      <th >Document Name</th>
+        <th >Doc. Type</th>
+        <th >Rev.</th>
+        <th >Dept.</th>
+        <th >Issued Date</th>
+        <th >Indexing Method</th>
+        <th >Related Procedure</th>
+        <th >Storage Location</th>
+        <th >Retention Peroid</th>
+        <th >Original Doc.</th>
+        <th >Distributed Dept.</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for document in documents %}
+    <tr>
+      <td>{{ document.code }}</td>
+      <td>{{ document.name }}</td>
+        <td>{{ document.type }}</td>
+        <td>{{ document.rev }}</td>
+        <td>{{ document.department }}</td>
+        <td>{{ document.issued_date }}</td>
+        <td>{{ document.indexing_method }}</td>
+        <td>{{ document.related_procedure }}</td>
+        <td>{{ document.storage_location }}</td>
+        <td>{{ document.retention_period }}</td>
+        <td>{{ document.original_doc }}</td>
+        <td>{{ document.distributed_dept }}</td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+{% endblock %}
+

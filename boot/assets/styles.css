@@ -1,0 +1,7 @@
+body{
+    background-color: #0f121f;
+    background-image: url('/static/feathers.jpg');
+    background-repeat-y: no-repeat;
+    background-size: cover;
+    color: #fff;
+}

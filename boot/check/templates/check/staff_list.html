@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+    <h1>Staff List</h1>
+    <div class="container" style="width:750px">
+    {% for staff in staffs %}
+        <div class="row">
+            <h2><a href="{% url 'check:detail_staff' slug=staff.slug %}">{{ staff.name }}</a></h2>
+            <p>{{ staff.birthday }}</p>
+            <p>{{ staff.education }}</p>
+            <p class="author">added by {{ staff.author.username }}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

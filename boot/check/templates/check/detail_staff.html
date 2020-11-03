@@ -1,0 +1,10 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="container">
+        <img src="{{ staffs.thumb.url }}" />
+        <h2>{{ staffs.name }}</h2>
+        <p>{{ staffs.birthday }}</p>
+        <p>{{ staffs.education }}</p>
+</div>
+{% endblock %}

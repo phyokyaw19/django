@@ -1,0 +1,34 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+        <h3>Machine List </h3>
+        <a href="{% url 'machine:add_machine' %}" class="btn btn-info" role="button">Create New Machine</a>
+        <a href="{% url 'machine:add_supplier' %}" class="btn btn-info" role="button">Create New Supplier</a>
+        <div class="container my-3 border">
+            {% for machine in machines %}
+                <div class="mahcine">
+                   <div class="row">
+                        <div class="col-sm-2">
+                            <h6><a href="{% url 'machine:detail_machine' pk=machine.pk %}">{{ machine.title }}</a></h6>
+                        </div>
+                        <div class="col-sm-2">
+                            <h6><a href="{% url 'machine:detail_machine' pk=machine.pk %}">{{ machine.code }}</a></h6>
+                        </div>
+                        <div class="col-sm-2">
+                            <p>{{ machine.body }}</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p>{{ machine.supplier }}</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><a href="{% url 'machine:delete_machine' pk=machine.pk %}">Delete/</a>
+                            <a href="{% url 'machine:update_machine' pk=machine.pk %}">Update</a></p>
+                        </div>
+                        <div class="col-sm-2">
+                             <p>{{ machine.alert_day0 }}{{ machine.alert_day1 }}{{ machine.alert_day2 }}{{ machine.alert_day3 }}</p>
+                        </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+{% endblock %}
