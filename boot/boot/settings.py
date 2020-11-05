@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'accounts',
     'machine',
-    'documents',
+    'documents.apps.DocumentsConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,8 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+            <p>This document is link to the corresponding document in database.</p>
+            <p>It is recommended to edit in corresponding document or list!</p>
+            <p><a href="{% url 'documents:document_master_delete' pk=document.pk %}">Delete</a></p>
+            <p><a href="{% url 'documents:document_master_update' pk=document.pk %}">Update</a></p>
+{% endblock %}

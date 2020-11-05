@@ -2,6 +2,7 @@
 
 {% block content%}
         <h3>Document Master List </h3>
+        <h5>REV: {{revision_no.rev}}</h5>
         <table id="document_master_list" class="table table-hover table-striped table-bordered table-sm " cellspacing="0"
   width="100%">
 
@@ -25,7 +26,7 @@
   {% for document in documents %}
     <tr>
       <td>{{ document.code }}</td>
-      <td>{{ document.name }}</td>
+      <td><a href="{% url 'documents:document_master_detail' pk=document.pk %}">{{ document.name }}</a></td>
         <td>{{ document.type }}</td>
         <td>{{ document.rev }}</td>
         <td>{{ document.department }}</td>
@@ -41,5 +42,6 @@
 
   </tbody>
 </table>
+<h6>*** All the changes are authorized by Lab Director & Lab Manager</h6>
 {% endblock %}
 

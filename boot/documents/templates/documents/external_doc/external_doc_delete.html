@@ -1,0 +1,11 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <div class="container" style="width:500px">
+        <form method="post">{% csrf_token %}
+            <p>Are you sure you want to delete the external document"{{ object }}"?</p>
+            <input type="submit" value="Confirm">
+        </form>
+    </div>
+{% endblock %}

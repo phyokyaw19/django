@@ -1,0 +1,13 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+            <h2>{{ external_document.code }}</h2>
+            <p>{{ external_document.name }}</p>
+            <p>{{ external_document.item }}</p>
+            <p>{{ external_document.received_date }}</p>
+            <p>{{ external_document.controlled_location }}</p>
+            <p>{{ external_document.recorded_by }}</p>
+            <p>{{ external_document.remark }}</p>
+            <p><a href="{% url 'documents:external_doc_delete' pk=external_document.pk %}">Delete</a></p>
+            <p><a href="{% url 'documents:external_doc_update' pk=external_document.pk %}">Update</a></p>
+{% endblock %}

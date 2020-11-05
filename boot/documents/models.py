@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 import numpy
 import pandas as pd
 import datetime
-from django.db.models.signals import post_save
+
 
 class documents(models.Model):
     DEPARTMENTS = (('DC', 'DC'), ('QMS', 'QMS'), ('AD', 'AD'), ('ML', 'ML'),)
@@ -42,12 +42,6 @@ class external_documents(models.Model):
     def __str__(self):
         return str(self.name)
 
-def create_master_list(sender, instance, created, **kwargs):
-    if created:
-        target =  documents.objects.get(name='External Document List')
-        rev_no = target.rev
-        target.rev = int(rev_no) + 1
-        target.save()
-        print('Document is updated in master list')
-post_save.connect(create_master_list, sender=external_documents)
+
+
 

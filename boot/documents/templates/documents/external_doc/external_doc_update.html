@@ -1,0 +1,12 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <div class="container" style="width:500px">
+        <h2>update your external document!</h2>
+        <form method="post">{% csrf_token %}
+            {{ form|crispy }}
+        <input type="submit" value="Update">
+        </form>
+    </div>
+{% endblock %}
