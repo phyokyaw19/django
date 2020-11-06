@@ -2,8 +2,6 @@
 
 {% block content%}
         <h3>External Documents List (KTY-FDC-02)</h3>
-        <a href="{% url 'documents:external_doc_create' %}" class="btn btn-info" role="button">Create New</a>
-        <a href="{% url 'documents:external_doc_list_print' %}" class="btn btn-info" role="button">Print View</a>
         <h5>REV: {{target.rev}}, Updated at: {{target.get_date}}</h5>
         <h6>*** All the changes are authorized by Lab Director & Lab Manager *** HC = Hard Copy, SC = Soft Copy, D = Disc</h6>
         <table id="document_master_list" class="table table-hover table-striped table-bordered table-sm " cellspacing="0"
@@ -24,7 +22,7 @@
   {% for external_document in external_documents %}
     <tr>
       <td>{{ external_document.code }}</td>
-      <td><a href="{% url 'documents:external_doc_detail' pk=external_document.pk %}">{{ external_document.name }}</a></td>
+      <td>{{ external_document.name }}</td>
         <td>{{ external_document.item }}</td>
         <td>{{ external_document.get_date }}</td>
         <td>{{ external_document.controlled_location }}</td>

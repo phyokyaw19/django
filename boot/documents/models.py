@@ -27,6 +27,9 @@ class documents(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def get_date(self):
+        return self.issued_date.date()
+
 class external_documents(models.Model):
     DEPARTMENTS = (('DC', 'DC'), ('QMS', 'QMS'), ('AD', 'AD'), ('ML', 'ML'),)
 
@@ -41,6 +44,31 @@ class external_documents(models.Model):
 
     def __str__(self):
         return str(self.name)
+    def get_date(self):
+        return self.received_date.date()
+
+class dar(models.Model):
+    DEPARTMENTS = (('DC', 'DC'), ('QMS', 'QMS'), ('AD', 'AD'), ('ML', 'ML'),)
+    DOC_TYPES = (('Manual', 'Manual'), ('Procedure', 'Procedure'), ('Form', 'Form'), ('WI', 'WI'), ('Others', 'Others'),)
+    PURPOSE = (('Create New Document', 'Create New Document'), ('Update Revision', 'Update Revision'),)
+
+    name = models.CharField('Doc.Name (Filled by request person)',max_length=100, blank=True, null=True)
+    code = models.CharField('Doc.Code (Filled by request person)',max_length=100, blank=True, null=True)
+    received_date = models.DateTimeField('Fill date in mm/dd/yyyy format (e.g. 12/31/2020)(Filled by request person)',
+                                       auto_now_add=False, auto_now=False,blank=True, null=True)
+    purpose = models.CharField('Request Purpose (Filled by request person)',max_length=100, blank=True, null=True, choices=PURPOSE)
+    detail = models.CharField('Request Detail (Filled by request person)',max_length=200, blank=True, null=True)
+    requested_by = models.CharField('Requested Person (Filled by request person)',max_length=100, blank=True, null=True)
+    dar_no = models.CharField('Requested Person (Filled by DC)',max_length=100, blank=True, null=True)
+    approved_by = models.CharField('Approved Person (Filled by DC)',max_length=100, blank=True, null=True)
+    remark = models.CharField('Remark (Filled by DC)',max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.name)
+    def get_date(self):
+        return self.received_date.date()
+
+
 
 
 

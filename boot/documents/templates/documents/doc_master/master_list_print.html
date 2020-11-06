@@ -2,8 +2,6 @@
 
 {% block content%}
         <h3>Document Master List (KTY-FDC-01)</h3>
-        <a href="{% url 'documents:document_master_create' %}" class="btn btn-info" role="button">Create New</a>
-        <a href="{% url 'documents:show_dm_print_view' %}" class="btn btn-info" role="button">Print View</a>
         <h5>REV: {{revision_no.rev}}, Updated at: {{revision_no.get_date}}</h5>
         <h6>*** All the changes are authorized by Lab Director & Lab Manager</h6>
 
@@ -30,7 +28,7 @@
   {% for document in documents %}
     <tr>
       <td>{{ document.code }}</td>
-      <td><a href="{% url 'documents:document_master_detail' pk=document.pk %}">{{ document.name }}</a></td>
+      <td>{{ document.name }}</td>
         <td>{{ document.type }}</td>
         <td>{{ document.rev }}</td>
         <td>{{ document.department }}</td>

@@ -1,0 +1,18 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+    <h3>Forms</h3>
+            <p>** DC Department **</p>
+            <p><a href="{% url 'documents:show_dm'%}">FDC-01 Document Master List</a></p>
+            <p><a href="{% url 'documents:external_doc_list'%}">FDC-02 External Document List</a></p>
+            <p><a href="{% url 'documents:dar_list'%}">FDC-03 Document Action Request(DAR)</a></p>
+    <h3>Procedures</h3>
+            <p><a href="{% url 'documents:list_compact'%}">Delete</a></p>
+            <p><a href="{% url 'documents:list_compact'%}">Update</a></p>
+    <h3>Work Instructions</h3>
+            <p><a href="{% url 'documents:list_compact'%}">Delete</a></p>
+            <p><a href="{% url 'documents:list_compact'%}">Update</a></p>
+    <h3>Manuals</h3>
+            <p><a href="{% url 'documents:list_compact'%}">Delete</a></p>
+            <p><a href="{% url 'documents:list_compact'%}">Update</a></p>
+{% endblock %}
