@@ -45,6 +45,11 @@ class JSONField(CheckFieldDefaultMixin, Field):
             if not router.allow_migrate_model(db, self.model):
                 continue
             connection = connections[db]
+            if (
+                self.model._meta.required_db_vendor and
+                self.model._meta.required_db_vendor != connection.vendor
+            ):
+                continue
             if not (
                 'supports_json_field' in self.model._meta.required_db_features or
                 connection.features.supports_json_field
@@ -70,8 +75,6 @@ class JSONField(CheckFieldDefaultMixin, Field):
     def from_db_value(self, value, expression, connection):
         if value is None:
             return value
-        if connection.features.has_native_json_field and self.decoder is None:
-            return value
         try:
             return json.loads(value, cls=self.decoder)
         except json.JSONDecodeError:
@@ -90,14 +93,6 @@ class JSONField(CheckFieldDefaultMixin, Field):
         if transform:
             return transform
         return KeyTransformFactory(name)
-
-    def select_format(self, compiler, sql, params):
-        if (
-            compiler.connection.features.has_native_json_field and
-            self.decoder is not None
-        ):
-            return compiler.connection.ops.json_cast_text_sql(sql), params
-        return super().select_format(compiler, sql, params)
 
     def validate(self, value, model_instance):
         super().validate(value, model_instance)
@@ -378,6 +373,29 @@ class KeyTransformIsNull(lookups.IsNull):
         return super().as_sql(compiler, connection)
 
 
+class KeyTransformIn(lookups.In):
+    def resolve_expression_parameter(self, compiler, connection, sql, param):
+        sql, params = super().resolve_expression_parameter(
+            compiler, connection, sql, param,
+        )
+        if (
+            not hasattr(param, 'as_sql') and
+            not connection.features.has_native_json_field
+        ):
+            if connection.vendor == 'oracle':
+                value = json.loads(param)
+                if isinstance(value, (list, dict)):
+                    sql = "JSON_QUERY(%s, '$.value')"
+                else:
+                    sql = "JSON_VALUE(%s, '$.value')"
+                params = (json.dumps({'value': value}),)
+            elif connection.vendor in {'sqlite', 'mysql'}:
+                sql = "JSON_EXTRACT(%s, '$')"
+        if connection.vendor == 'mysql' and connection.mysql_is_mariadb:
+            sql = 'JSON_UNQUOTE(%s)' % sql
+        return sql, params
+
+
 class KeyTransformExact(JSONExact):
     def process_lhs(self, compiler, connection):
         lhs, lhs_params = super().process_lhs(compiler, connection)
@@ -479,6 +497,7 @@ class KeyTransformGte(KeyTransformNumericLookupMixin, lookups.GreaterThanOrEqual
     pass
 
 
+KeyTransform.register_lookup(KeyTransformIn)
 KeyTransform.register_lookup(KeyTransformExact)
 KeyTransform.register_lookup(KeyTransformIExact)
 KeyTransform.register_lookup(KeyTransformIsNull)

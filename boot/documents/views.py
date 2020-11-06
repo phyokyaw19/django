@@ -13,7 +13,7 @@ def show_dm(request):
     revision_no = documents.objects.get(name='Document Master List')
     document = documents.objects.all().order_by('type','code');
     return render(request, 'documents/doc_master/master_list.html', {'documents': document,
-                                                          'revision_no': revision_no})
+                                                                    'revision_no': revision_no})
 
 def show_dm_print_view(request):
     revision_no = documents.objects.get(name='Document Master List')
@@ -82,12 +82,12 @@ class external_doc_delete(DeleteView):
 def dar_list (request):
     target = documents.objects.get(name='Document Action Request (DAR)')
     dar1 = dar.objects.all().order_by('code');
-    return render(request, 'documents/dar/dar_list.html', {'dar': dar1,
+    return render(request, 'documents/dar/dar_list.html', {'dars': dar1,
                                                                       'target':target})
 def dar_list_print (request):
     target = documents.objects.get(name='Document Action Request (DAR)')
     dar1 = dar.objects.all().order_by('code');
-    return render(request, 'documents/dar/dar_list_print.html', {'dar': dar1,
+    return render(request, 'documents/dar/dar_list_print.html', {'dars': dar1,
                                                                       'target':target})
 
 class dar_create(CreateView):
@@ -112,6 +112,6 @@ class dar_update(UpdateView):
 class dar_delete(DeleteView):
     template_name = 'documents/dar/dar_delete.html'
     model = dar
-    success_url = reverse_lazy('documents:dar_delete')
+    success_url = reverse_lazy('documents:dar_list')
 #################################################################################################
 
