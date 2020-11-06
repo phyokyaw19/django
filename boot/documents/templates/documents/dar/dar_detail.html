@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+            <h2>{{ dar.dar_no }}</h2>
+            <p>{{ dar.name }}</p>
+            <p>{{ dar.get_date }}</p>
+            <p>{{ dar.purpose }}</p>
+            <p>{{ dar.detail }}</p>
+            <p>{{ dar.requested_by }}</p>
+            <p>{{ dar.approved_by }}</p>
+            <p>{{ dar.remark }}</p>
+            <p>{{ dar.code }}</p>
+            <p><a href="{% url 'documents:dar_delete' pk=dar.pk %}">Delete</a></p>
+            <p><a href="{% url 'documents:dar_update' pk=dar.pk %}">Update</a></p>
+{% endblock %}

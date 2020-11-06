@@ -1,0 +1,43 @@
+{% extends 'base_layout.html' %}
+
+{% block content%}
+        <h3>Document Action Requests (KTY-FDC-02) Records</h3>
+        <a href="{% url 'documents:dar_create' %}" class="btn btn-info" role="button">Create New</a>
+        <a href="{% url 'documents:dar_list_print' %}" class="btn btn-info" role="button">Print View</a>
+        <h5>REV: {{target.rev}}, Updated at: {{target.get_date}}</h5>
+        <h6>*** All the changes are authorized by Lab Director & Lab Manager</h6>
+<table id="document_master_list" class="table table-hover table-striped table-bordered table-sm " cellspacing="0"
+  width="100%">
+
+  <thead>
+    <tr>
+      <th >DAR No.</th>
+      <th >DAR Name</th>
+        <th >Date</th>
+        <th >Purpose</th>
+        <th >Details</th>
+        <th >Requested by</th>
+        <th >Approved by</th>
+        <th >Remark</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for dar1 in dar %}
+    <tr>
+      <td>{{ dar.dar_no }}</td>
+      <td><a href="{% url 'documents:dar_detail' pk=dar.pk %}">{{ dar.name }}</a></td>
+        <td>{{ dar.get_date }}</td>
+        <td>{{ dar.purpose }}</td>
+        <td>{{ dar.detail }}</td>
+        <td>{{ dar.requested_by }}</td>
+        <td>{{ dar.approved_by }}</td>
+        <td>{{ dar.remark }}</td>
+        <td>{{ dar.code }}</td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}
+
